@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('lastname');
             $table->enum('sex', ['man', 'woman']);
             $table->string('country');
-            $table->text('notes');
+            $table->text('notes')->nullable();
             $table->date('birth_day');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
