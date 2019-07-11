@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class HomeController extends Controller
+class AdminController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -15,18 +14,16 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('admin');
     }
 
     /**
-     * Show the application dashboard.
+     * Show the admin application dashboard.
      *
-     * @return mixed
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        if(Auth::user()->role=='admin'){
-            return redirect("admin");
-        }
-        return view('home');
+        return view('admin/home');
     }
 }
