@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//tourists api
+//TODO: check authorization
+Route::get('/api/users', 'AdminController@users')->name('api.users');
