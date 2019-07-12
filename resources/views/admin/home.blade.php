@@ -19,7 +19,7 @@
             </div>
         @endif
         <div class="col-md-10">
-            <div class="card">
+            <div class="card card-info">
                 <div class="card-header">{{ __('admin.welcome', ['name' => Auth::user()->name ]) }}</div>
                 <div class="card-body">
                     <h2> {{ __('admin.aboutyou') }}</h2>
@@ -31,5 +31,9 @@
     </div>
     <users title="{{ __('admin.users') }}"></users>
     <flights title="{{ __('admin.flights') }}"></flights>
+    <div class="row justify-content-end">
+        <a href="#" class="btn btn-primary">{{ __('admin.adduser') }}</a>
+        <a href="#" class="btn btn-primary">{{ __('admin.addflight') }}</a>   
+    </div>
 </div>
 @endsection

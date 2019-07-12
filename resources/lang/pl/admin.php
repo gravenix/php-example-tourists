@@ -17,5 +17,7 @@ return [
     'aboutyou' => 'O Tobie',
     'users' => 'Użytkownicy',
     'flights' => 'Loty',
+    'adduser' => 'Dodaj użytkownika',
+    'addflight' => 'Dodaj lot',
 
 ];
