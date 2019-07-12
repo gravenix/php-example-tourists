@@ -19,4 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //tourists api
 //TODO: check authorization
-Route::get('/api/users', 'AdminController@users')->name('api.users');
+Route::get('/users', 'AdminController@users')->name('api.users');

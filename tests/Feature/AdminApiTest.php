@@ -10,28 +10,25 @@ use App\User;
 
 class AdminApiTest extends TestCase
 {
-    use RefreshDatabase;
-
     /**
-     * A basic feature test example.
+     * Test getting all users by api.
      *
      * @return void
      */
     public function testAsAdmin()
     {
+        $users = factory(User::class, 10)->create();
         $user = factory(User::class)->create([
-            'name' => 'test',
-            'lastname' => 'testovski', 
-            'birth_day' => '2002-02-02', 
-            'sex' => 'man', 
-            'email' => 'aaa@aaa.aa', 
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 
-            'country' => 'Poland',
-            'role' => 'admin']);
+            'role' => 'admin'
+        ]);
         $response = $this->actingAs($user)->get(route('api.users'));
-        $response->assertStatus(200);
+        $response->assertStatus(200)
+                ->assertJsonFragment($user->toArray());
     }
 
+    /**
+     * Test getting user as NOT admin (should fail/redirect)
+     */
     public function testAsUser(){
         $response = $this->get(route('api.users'));
         $response->assertStatus(302);
