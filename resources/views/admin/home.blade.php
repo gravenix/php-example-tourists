@@ -29,23 +29,7 @@
             </div>
         </div>
     </div>
-    <div class="row justify-content-center">
-        <div class="col-6">
-            <div class="card">
-                <div class="card-header">{{ __('admin.users') }}</div>
-                <div class="card-body">
-                    
-                </div>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="card">
-                <div class="card-header">{{ __('admin.flights') }}</div>
-                <div class="card-body">
-                    
-                </div>
-            </div>
-        </div>
-    </div>
+    <users title="{{ __('admin.users') }}"></users>
+    <flights title="{{ __('admin.flights') }}"></flights>
 </div>
 @endsection
