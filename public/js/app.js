@@ -1756,13 +1756,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['title'],
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/api/flights').then(function (result) {
+      _this.flights = result.data;
+    }, function (error) {
+      alert("An error occurred while loading users!");
+    });
+  },
   data: function data() {
     return {
-      body: 'Temporary Message'
+      flights: {}
     };
   }
 });
@@ -1817,7 +1824,6 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/users').then(function (result) {
-      console.log(result);
       _this.users = result.data;
     }, function (error) {
       alert("An error occurred while loading users!");
@@ -37187,17 +37193,13 @@ var render = function() {
               _vm._v(" "),
               _vm._l(_vm.flights, function(flight) {
                 return _c("tr", [
-                  _c("td", [_vm._v(_vm._s(_vm.user.name))]),
+                  _c("td", [_vm._v(_vm._s(flight.departure_time))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(_vm.user.lastname))]),
+                  _c("td", [_vm._v(_vm._s(flight.arrival_time))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(_vm.user.email))]),
+                  _c("td", [_vm._v(_vm._s(flight.seats))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(_vm.user.birth_day))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(_vm.user.sex))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(_vm.user.country))])
+                  _c("td", [_vm._v(_vm._s(flight.price))])
                 ])
               })
             ],

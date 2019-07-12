@@ -36,7 +36,6 @@
         mounted() {
             axios.get('/api/users')
             .then(result=> {
-                console.log(result);
                 this.users = result.data;
             }, error => {
                 alert("An error occurred while loading users!")

@@ -12,12 +12,10 @@
                             <th>Cena</th>
                         </tr>
                         <tr v-for="flight in flights">
-                            <td>{{ user.name }}</td>
-                            <td>{{ user.lastname }}</td>
-                            <td>{{ user.email }}</td>
-                            <td>{{ user.birth_day }}</td>
-                            <td>{{ user.sex }}</td>
-                            <td>{{ user.country }}</td>
+                            <td>{{ flight.departure_time }}</td>
+                            <td>{{ flight.arrival_time }}</td>
+                            <td>{{ flight.seats }}</td>
+                            <td>{{ flight.price }}</td>
                         </tr>
                     </table>
                 </div>
@@ -29,9 +27,17 @@
 <script>
     export default {
         props: ['title'],
+        mounted() {
+            axios.get('/api/flights')
+            .then(result=> {
+                this.flights = result.data;
+            }, error => {
+                alert("An error occurred while loading users!")
+            });
+        },
         data() {
             return {
-                body: 'Temporary Message'
+                flights: {}
             }
         }
     }
