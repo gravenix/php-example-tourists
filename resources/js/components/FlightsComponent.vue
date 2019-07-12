@@ -5,17 +5,19 @@
                 <div class="card-header">{{ title }}</div>
                 <div class="card-body">
                     <table class="table">
-                        <tr>
-                            <th>Czas odlotu</th>
-                            <th>Czas Przylotu</th>
-                            <th>Miejsca</th>
-                            <th>Cena</th>
-                        </tr>
-                        <tr v-for="flight in flights">
-                            <td>{{ flight.departure_time }}</td>
-                            <td>{{ flight.arrival_time }}</td>
-                            <td>{{ flight.seats }}</td>
-                            <td>{{ flight.price }}</td>
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Czas odlotu</th>
+                                <th>Czas Przylotu</th>
+                                <th>Miejsca</th>
+                                <th>Cena</th>
+                            </tr>
+                        </thead>
+                        <tr v-for="flight in (flights.length>10?10:flights.length)" :key="flight">
+                            <td>{{ flights[flight-1].departure_time }}</td>
+                            <td>{{ flights[flight-1].arrival_time }}</td>
+                            <td>{{ flights[flight-1].seats }}</td>
+                            <td>{{ flights[flight-1].price }}</td>
                         </tr>
                     </table>
                 </div>

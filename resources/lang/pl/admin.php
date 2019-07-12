@@ -19,5 +19,6 @@ return [
     'flights' => 'Loty',
     'adduser' => 'Dodaj użytkownika',
     'addflight' => 'Dodaj lot',
+    'cancel' => 'Anuluj',
 
 ];

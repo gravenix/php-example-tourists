@@ -5,21 +5,25 @@
                 <div class="card-header">{{ title }}</div>
                 <div class="card-body">
                     <table class="table">
-                        <tr>
-                            <th>Imię</th>
-                            <th>Nazwisko</th>
-                            <th>E-Mail</th>
-                            <th>Data urodzenia</th>
-                            <th>Płeć</th>
-                            <th>Kraj</th>
-                        </tr>
-                        <tr v-for="user in users">
-                            <td>{{ user.name }}</td>
-                            <td>{{ user.lastname }}</td>
-                            <td>{{ user.email }}</td>
-                            <td>{{ user.birth_day }}</td>
-                            <td>{{ user.sex }}</td>
-                            <td>{{ user.country }}</td>
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Imię</th>
+                                <th>Nazwisko</th>
+                                <th>E-Mail</th>
+                                <th>Data urodzenia</th>
+                                <th>Płeć</th>
+                                <th>Kraj</th>
+                                <th>Usuń</th>
+                            </tr>
+                        </thead>
+                        <tr v-for="user in (users.length>10?10:users.length)" :key="user">
+                            <td>{{ users[user-1].name }}</td>
+                            <td>{{ users[user-1].lastname }}</td>
+                            <td>{{ users[user-1].email }}</td>
+                            <td>{{ users[user-1].birth_day }}</td>
+                            <td>{{ users[user-1].sex }}</td>
+                            <td>{{ users[user-1].country }}</td>
+                            <td><button v-on:click="deleteUser(users[user-1].id)">usuń</button></td>
                         </tr>
                     </table>
                 </div>
@@ -40,6 +44,20 @@
             }, error => {
                 alert("An error occurred while loading users!")
             });
+        },
+        methods: {
+            deleteUser: async function(id){
+                await axios.delete('/api/user', {data: {'id': id}});
+                load();
+            },
+            load: function(){
+                axios.get('/api/users')
+                .then(result=> {
+                    this.users = result.data;
+                }, error => {
+                    alert("An error occurred while loading users!")
+                });
+            }
         },
         data() {
             return {
