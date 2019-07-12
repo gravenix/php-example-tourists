@@ -18,6 +18,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 //tourists api
+//users
 Route::get('users', 'AdminController@users')->name('api.users');
+Route::post('user', 'AdminController@adduser')->name('api.adduser');
+Route::delete('user', 'AdminController@deluser')->name('api.deluser');
+
+//flights
 Route::get('flights', 'FlightController@flights')->name('api.flights');
 Route::post('flight', 'FlightController@addFlight')->name('api.addflight');
