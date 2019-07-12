@@ -18,5 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 //tourists api
-//TODO: check authorization
-Route::get('/users', 'AdminController@users')->name('api.users');
+Route::get('users', 'AdminController@users')->name('api.users');
+Route::get('flights', 'FlightController@flights')->name('api.flights');
+Route::post('flight', 'FlightController@addFlight')->name('api.addflight');
