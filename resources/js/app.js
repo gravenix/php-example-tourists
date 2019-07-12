@@ -32,7 +32,7 @@ Vue.component('flights', require('./components/FlightsComponent.vue').default);
 const app = new Vue({
     el: '#app',
     methods: {
-        adduser: function(){
+        adduser: function(button){
             var data = {
                 email: document.getElementById('email').value,
                 password: document.getElementById('password').value,
@@ -47,10 +47,12 @@ const app = new Vue({
                 alert("Podane hasła nie zgadzają się");
                 return;
             }
+            button.disabled = true; //wyłącz przycisk
             axios.post('/api/user', data)
             .then(result => {
                 //success
-                console.log(result);
+                $('#adduserModal').modal('hide');
+                this.$forceUpdate();
             }, error => {
                 //false
                 alert("An error occurred");

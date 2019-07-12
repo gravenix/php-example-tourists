@@ -50316,7 +50316,9 @@ Vue.component('flights', __webpack_require__(/*! ./components/FlightsComponent.v
 var app = new Vue({
   el: '#app',
   methods: {
-    adduser: function adduser() {
+    adduser: function adduser(button) {
+      var _this = this;
+
       var data = {
         email: document.getElementById('email').value,
         password: document.getElementById('password').value,
@@ -50333,9 +50335,13 @@ var app = new Vue({
         return;
       }
 
+      button.disabled = true; //wyłącz przycisk
+
       axios.post('/api/user', data).then(function (result) {
         //success
-        console.log(result);
+        $('#adduserModal').modal('hide');
+
+        _this.$forceUpdate();
       }, function (error) {
         //false
         alert("An error occurred");
