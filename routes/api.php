@@ -22,7 +22,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('users', 'AdminController@users')->name('api.users');
 Route::post('user', 'AdminController@adduser')->name('api.adduser');
 Route::delete('user', 'AdminController@deluser')->name('api.deluser');
+Route::post('user/{id}', 'AdminController@updateUser')->where('id', '[0-9]+')->name('api.updateuser');
 
 //flights
 Route::get('flights', 'FlightController@flights')->name('api.flights');
+Route::post('flight/{id}', 'FlightController@updateFlight')->where('id', '[0-9]+')->name('api.updateflight');
 Route::post('flight', 'FlightController@addFlight')->name('api.addflight');
+Route::delete('flight', 'FlightController@delFlight')->name('api.delflight');

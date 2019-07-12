@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Flight;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class FlightController extends Controller
 {
@@ -30,6 +31,32 @@ class FlightController extends Controller
         $flight->save();
         return response()->json(['created' => true], 201);
     }    
+
+    /**
+     * Delete given flight
+     */
+    public function delFlight(Request $request){
+        $deleted = Flight::where('id', $request->input('id', -1))->delete();
+
+        return response()->json(['deleted' => $deleted>0], 200);
+    }
+
+    /**
+     * Updates info about flights
+     */
+    public function updateFlight(Request $request, $id){
+        try{
+            $flight = Flight::findOrFail($id)->first();
+            foreach($request->input() as $key => $val){
+                if(!in_array($key, array("departure_time", "arrival_time", "seats", "price"))) continue;
+                $flight->$key = $val;
+            }
+            $flight->save();
+        } catch(ModelNotFoundException $e){
+            return response()->json(['updated' => false], 200);
+        }
+        return response()->json(['updated' => true], 200);
+    }
 
      /**
       * Gets all flights
