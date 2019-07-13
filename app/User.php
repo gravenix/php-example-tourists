@@ -36,4 +36,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Flights of the user
+     */
+    public function flights(){
+        return $this->belongsToMany('App\Flight');
+    }
 }
