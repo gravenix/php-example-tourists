@@ -39,18 +39,21 @@
         props: ['title'],
         mounted() {
             axios.get('/api/users')
-            .then(result=> {
-                this.users = result.data;
-            }, error => {
-                alert("An error occurred while loading users!")
+                .then(result=> {
+                    this.users = result.data;
+                }, error => {
+                    alert("An error occurred while loading users!")
+                });
+            this.$root.$on('refreshUsers', () =>{
+                this.refreshUsers()
             });
         },
         methods: {
             deleteUser: async function(id){
                 await axios.delete('/api/user', {data: {'id': id}});
-                load();
+                this.refreshUsers();
             },
-            load: function(){
+            refreshUsers: function() {
                 axios.get('/api/users')
                 .then(result=> {
                     this.users = result.data;

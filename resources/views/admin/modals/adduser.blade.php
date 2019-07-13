@@ -116,7 +116,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('admin.cancel') }}</button>
-                <button type="button" class="btn btn-primary" v-on:click="adduser(this)">{{ __('admin.adduser') }}</button>
+                <button type="button" class="btn btn-primary add-button" v-on:click="adduser()">{{ __('admin.adduser') }}</button>
             </div>
             </div>
         </div>
