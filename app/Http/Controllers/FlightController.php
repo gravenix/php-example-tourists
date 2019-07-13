@@ -62,6 +62,6 @@ class FlightController extends Controller
       * Gets all flights
       */
     public function flights(){
-        return response()->json(Flight::all());
+        return response()->json(Flight::orderBy('departure_time')->get());
     }
 }
