@@ -13,12 +13,11 @@
                                 {{ session('status') }}
                             </div>
 
-                        You are logged in!
                     </div>
                 </div>
             </div>
         @endif
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div class="card card-info">
                 <div class="card-header">{{ __('admin.welcome', ['name' => Auth::user()->name ]) }}</div>
                 <div class="card-body">

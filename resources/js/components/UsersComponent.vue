@@ -16,16 +16,23 @@
                                 <th>Usuń</th>
                             </tr>
                         </thead>
-                        <tr v-for="user in (users.length>10?10:users.length)" :key="user">
-                            <td>{{ users[user-1].name }}</td>
-                            <td>{{ users[user-1].lastname }}</td>
-                            <td>{{ users[user-1].email }}</td>
-                            <td>{{ users[user-1].birth_day }}</td>
-                            <td>{{ users[user-1].sex }}</td>
-                            <td>{{ users[user-1].country }}</td>
-                            <td><button v-on:click="deleteUser(users[user-1].id)">usuń</button></td>
+                        <tr v-for="user in userItem" :key="user">
+                            <td>{{ users[calcUserId(user)].name }}</td>
+                            <td>{{ users[calcUserId(user)].lastname }}</td>
+                            <td>{{ users[calcUserId(user)].email }}</td>
+                            <td>{{ users[calcUserId(user)].birth_day }}</td>
+                            <td>{{ users[calcUserId(user)].sex }}</td>
+                            <td>{{ users[calcUserId(user)].country }}</td>
+                            <td><button v-on:click="deleteUser(users[calcUserId(user)].id)">usuń</button></td>
                         </tr>
                     </table>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item" v-bind:class="{active: (page==index)}" v-for="index in pagesCount" :key="index">
+                                <a class="page-link" v-on:click="setPage(index)" >{{ index }}</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -48,6 +55,25 @@
                 this.refreshUsers()
             });
         },
+        computed: {
+            pagesCount: function(){
+                let tmp = Math.ceil(this.users.length/10);
+                let r = Array();
+                for(let i=1; i<=tmp; i++)
+                    r.push(i);
+                return r;
+            },
+            userItem: function(){
+                if(this.users.length<=10){
+                    return this.users.length;
+                } 
+                let tmp = Math.min(this.users.length-10*(this.page-1), 10);
+                let r = Array();
+                for(let i=1; i<=tmp; i++)
+                    r.push(i);
+                return r;
+            }
+        },
         methods: {
             deleteUser: async function(id){
                 await axios.delete('/api/user', {data: {'id': id}});
@@ -60,11 +86,18 @@
                 }, error => {
                     alert("An error occurred while loading users!")
                 });
+            },
+            setPage: function(index){
+                this.page=index;
+            },
+            calcUserId: function(user){
+                return (this.page-1)*10+(user-1);
             }
         },
         data() {
             return {
                 users: {},
+                page: 1,
             }
         }
     }
