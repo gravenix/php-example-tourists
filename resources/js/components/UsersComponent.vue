@@ -28,8 +28,14 @@
                     </table>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
+                            <li class="page-item" v-bind:class="{disabled: (page==1)}" >
+                                <a class="page-link" v-on:click="setPage(page-1)" >Poprzednia</a>
+                            </li>
                             <li class="page-item" v-bind:class="{active: (page==index)}" v-for="index in pagesCount" :key="index">
                                 <a class="page-link" v-on:click="setPage(index)" >{{ index }}</a>
+                            </li>
+                            <li class="page-item" v-bind:class="{disabled: (page==pagesCount.length)}" >
+                                <a class="page-link" v-on:click="setPage(page+1)" >Następna</a>
                             </li>
                         </ul>
                     </nav>

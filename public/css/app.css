@@ -10652,3 +10652,11 @@ a.btn {
   margin-right: 20px;
 }
 
+.pagination .page-item {
+  cursor: pointer;
+}
+
+.pagination .disabled {
+  cursor: default;
+}
+

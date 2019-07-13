@@ -14,3 +14,12 @@ div.row{
 a.btn{
     margin-right: 20px;
 }
+
+.pagination {
+    .page-item {
+        cursor: pointer;
+    }
+    .disabled{
+        cursor: default;
+    }
+}
