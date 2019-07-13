@@ -10,3 +10,7 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 debug.log
+
+#using webpack and sass so we won't need these
+/public/js/*
+/public/css/*

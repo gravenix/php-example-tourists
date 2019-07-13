@@ -10,7 +10,11 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
+    @if(Auth::user()->role == 'admin')
+    <script src="{{ asset('js/admin_app.js') }}" defer></script>
+    @else
     <script src="{{ asset('js/app.js') }}" defer></script>
+    @endif
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

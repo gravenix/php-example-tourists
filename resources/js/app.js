@@ -20,8 +20,6 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('users', require('./components/UsersComponent.vue').default);
-Vue.component('flights', require('./components/FlightsComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -31,32 +29,4 @@ Vue.component('flights', require('./components/FlightsComponent.vue').default);
 
 const app = new Vue({
     el: '#app',
-    methods: {
-        adduser: function(button){
-            var data = {
-                email: document.getElementById('email').value,
-                password: document.getElementById('password').value,
-                password_confirmation: document.getElementById('password-confirm').value,
-                name: document.getElementById('name').value,
-                lastname: document.getElementById('lastname').value,
-                sex: document.getElementById('male').checked?'man':'woman',
-                country: document.getElementById('country').value,
-                birth_day: document.getElementById('birthday').value,
-            }
-            if(!(data.password==data.password_confirmation)){
-                alert("Podane hasła nie zgadzają się");
-                return;
-            }
-            button.disabled = true; //wyłącz przycisk
-            axios.post('/api/user', data)
-            .then(result => {
-                //success
-                $('#adduserModal').modal('hide');
-                this.$forceUpdate();
-            }, error => {
-                //false
-                alert("An error occurred");
-            });
-        },
-    }
 });
