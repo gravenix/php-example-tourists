@@ -56,27 +56,27 @@
                 </div>
                 <div v-if="data.type=='user'">
                     <div class="row text-center font-weight-bold">
-                        <div class="col-3">Imię</div>
-                        <div class="col-3">Nazwisko</div>
-                        <div class="col-3">E-Mail</div>
-                        <div class="col-3">Płeć</div>
+                        <div class="col-4">Imię</div>
+                        <div class="col-4">Nazwisko</div>
+                        <div class="col-4">E-Mail</div>
                     </div>
                     <div class="row text-center font-weight-light">
-                        <div class="col-3">{{ data.object.name }}</div>
-                        <div class="col-3">{{ data.object.lastname }}</div>
-                        <div class="col-3">{{ data.object.email }}</div>
-                        <div class="col-3">{{ data.object.sex=='man'?'Mężczyzna':'Kobieta' }}</div>
+                        <div class="col-4">{{ data.object.name }}</div>
+                        <div class="col-4">{{ data.object.lastname }}</div>
+                        <div class="col-4">{{ data.object.email }}</div>
                     </div>
                     <div class="row text-center font-weight-bold">
-                        <div class="col-3">Data urodzenia</div>
-                        <div class="col-3">Kraj</div>
+                        <div class="col-4">Płeć</div>
+                        <div class="col-4">Data urodzenia</div>
+                        <div class="col-4">Kraj</div>
                     </div>
                     <div class="row text-center font-weight-light">
-                        <div class="col-3">{{ data.object.birth_day }}</div>
-                        <div class="col-3">{{ data.object.country }}</div>
+                        <div class="col-4">{{ data.object.sex=='man'?'Mężczyzna':'Kobieta' }}</div>
+                        <div class="col-4">{{ data.object.birth_day }}</div>
+                        <div class="col-4">{{ data.object.country }}</div>
                     </div>
                     <div class="row justify-content-center text-center">
-                        <div class="col-3">
+                        <div class="col-4">
                             <button class="btn btn-success" v-on:click="addItemFlight(data.object.id)">Dodaj do Lotu</button>
                         </div>
                     </div>

@@ -19,12 +19,7 @@
         @endif
         <div class="col-md-12">
             <div class="card card-info">
-                <div class="card-header">{{ __('admin.welcome', ['name' => Auth::user()->name ]) }}</div>
-                <div class="card-body">
-                    <h2> {{ __('admin.aboutyou') }}</h2>
-                    <p>{{ Auth::user()->name . ' ' . Auth::user()->lastname }}<br/>
-                    {{ Auth::user()->country }}</p>
-                </div>
+                <div class="card-header"><h1>{{ __('admin.welcome', ['name' => Auth::user()->name ]) }}</h1></div>
             </div>
         </div>
     </div>
