@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Flight;
+use App\User;
 use App\FlightUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +31,7 @@ class FlightUserController extends Controller
         }
         try{
             $flight = Flight::findOrFail($flight_id);
+            User::findOrFail($user_id); // this will throw exception if there is no user with given id
             if($flight->users()->find($user_id)!=null //user alredy assigned to a flight
                 || $flight->users()->count()>=$flight->seats){ //is there a place for user?
                 return response()->json($failed, 403);

@@ -7,18 +7,22 @@
                     <table class="table">
                         <thead class="thead-light">
                             <tr>
+                                <th>ID Lotu</th>
                                 <th>Czas odlotu</th>
                                 <th>Czas Przylotu</th>
                                 <th>Miejsca</th>
                                 <th>Cena</th>
+                                <th>Dodaj użytkownika</th>
                                 <th>Usuń</th>
                             </tr>
                         </thead>
                         <tr v-for="flight in flightItem" :key="flight">
+                            <td>#{{ flights[calcFlightId(flight)].id }}</td>
                             <td>{{ flights[calcFlightId(flight)].departure_time }}</td>
                             <td>{{ flights[calcFlightId(flight)].arrival_time }}</td>
                             <td>{{ flights[calcFlightId(flight)].seats }}</td>
-                            <td>{{ flights[calcFlightId(flight)].price }}</td>
+                            <td>${{ flights[calcFlightId(flight)].price.toFixed(2) }}</td>
+                            <td><button v-on:click="addUserToFlightModal(flights[calcFlightId(flight)].id)">dodaj</button></td>
                             <td><button v-on:click="deleteFlight(flights[calcFlightId(flight)].id)">usuń</button></td>
                         </tr>
                     </table>
@@ -93,6 +97,31 @@
                 await axios.delete('/api/flight', {data: {'id': id}});
                 this.refreshFlights();
             },
+            addUserToFlightModal: function(id){
+                let user = prompt("Podaj ID użytkownika (bez '#'):"); //I know it's also a bit ugly, but I don't have much time :/
+                let regex = /^\d+$/;
+                if(user==null) return;
+                if(!regex.test(user)){
+                    alert('Musisz podać samą liczbę!');
+                    return;
+                }
+                axios.post('/api/toflight/'+id+'/'+user)
+                    .then(result => {
+                        if(result.data.status!='success'){
+                            alert('Wystąpił błąd!');
+                        } else{
+                            alert('Dodano!');
+                        }
+                    }, error => {
+                        if(error.response.status==404){
+                            alert("Nie znaleziono użytkownika z takim id");
+                        } else if(error.response.status==403){
+                            alert("Nie można dodać użytkownika (już dodano albo lot jest pełny)");
+                        } else{
+                            alert('Wystąpił błąd!');
+                        }
+                    });
+            }
         },
         data() {
             return {
