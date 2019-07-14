@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -45,8 +45,12 @@
             }
 
             .title {
-                font-size: 84px;
+                font-size: 72px;
             }
+
+            @-webkit-keyframes fadeUp { from { transform: translateY(200%); opacity: 0; } to { transform: none; opacity: 1; } }
+            @-moz-keyframes fadeUp { from { transform: translateY(200%); opacity: 0; } to { transform: none; opacity: 1; } }
+            @keyframes fadeUp { from { transform: translateY(200%); opacity: 0; } to { transform: none; opacity: 1; } }
 
             .links > a {
                 color: #636b6f;
@@ -56,10 +60,49 @@
                 letter-spacing: .1rem;
                 text-decoration: none;
                 text-transform: uppercase;
+                
+                opacity: 0;
+                display: inline-block;
+                transform: translateY(200%);
+                -webkit-animation: fadeUp ease-out 1; 
+                -moz-animation: fadeUp ease-out 1;
+                animation: fadeUp ease-out 1;
+
+                -webkit-animation-fill-mode: forwards; 
+                -moz-animation-fill-mode: forwards;
+                animation-fill-mode: forwards;
+
+                -webkit-animation-duration: 0.5s;
+                -moz-animation-duration: 0.5s;
+                animation-duration: 0.5s;
             }
+
 
             .m-b-md {
                 margin-bottom: 30px;
+                transform: translateY(200%);
+                -webkit-animation: fadeUp ease-out 1; 
+                -moz-animation: fadeUp ease-out 1;
+                animation: fadeUp ease-out 1;
+
+                -webkit-animation-fill-mode: forwards; 
+                -moz-animation-fill-mode: forwards;
+                animation-fill-mode: forwards;
+
+                -webkit-animation-duration: 1s;
+                -moz-animation-duration: 1s;
+                animation-duration: 1s;
+            }
+
+            .links a:nth-child(odd){
+                -webkit-animation-delay: 1.2s;
+                -moz-animation-delay: 1.2s;
+                animation-delay: 1.2s;
+            }
+            .links a:nth-child(even){
+                -webkit-animation-delay: 1.4s;
+                -moz-animation-delay: 1.4s;
+                animation-delay: 1.4s;
             }
         </style>
     </head>
@@ -67,6 +110,16 @@
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
+                    
+                </div>
+            @endif
+
+            <div class="content">
+                <div class="title m-b-md">
+                    {{ config('app.name', 'Laravel') }}
+                </div>
+
+                <div class="links">
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
@@ -76,22 +129,6 @@
                             <a href="{{ route('register') }}">Register</a>
                         @endif
                     @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>
         </div>
