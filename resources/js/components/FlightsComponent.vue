@@ -11,6 +11,7 @@
                                 <th>Czas Przylotu</th>
                                 <th>Miejsca</th>
                                 <th>Cena</th>
+                                <th>Usuń</th>
                             </tr>
                         </thead>
                         <tr v-for="flight in flightItem" :key="flight">
@@ -18,6 +19,7 @@
                             <td>{{ flights[calcFlightId(flight)].arrival_time }}</td>
                             <td>{{ flights[calcFlightId(flight)].seats }}</td>
                             <td>{{ flights[calcFlightId(flight)].price }}</td>
+                            <td><button v-on:click="deleteFlight(flights[calcFlightId(flight)].id)">usuń</button></td>
                         </tr>
                     </table>
                     <nav aria-label="Page navigation example">
@@ -86,6 +88,10 @@
                     }, error => {
                         alert("An error occurred while loading users!")
                     });
+            },
+            deleteFlight: async function(id){
+                await axios.delete('/api/flight', {data: {'id': id}});
+                this.refreshFlights();
             },
         },
         data() {
