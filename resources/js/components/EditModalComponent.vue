@@ -25,7 +25,7 @@
                     </div>
                     <div class="row justify-content-center text-center">
                         <div class="col-3">
-                            <button class="btn btn-success">Dodaj użytkownika</button>
+                            <button class="btn btn-success" v-on:click="addItemUser(data.object.id)">Dodaj do Lotu</button>
                         </div>
                     </div>
                     <div class="row">
@@ -48,7 +48,7 @@
                                 <td>{{ user.email }}</td>
                                 <td>{{ user.sex=='man'?'Mężczyzna':'Kobieta' }}</td>
                                 <td>{{ user.country }}</td>
-                                <td>usuń</td>
+                                <td><button class="btn btn-danger" v-on:click="deleteItem(user.id)">usuń</button></td>
                             </tr>
                         </table>
                         <p class="text-center fluid" v-if="list.length==0">Brak turystów</p>
@@ -77,7 +77,7 @@
                     </div>
                     <div class="row justify-content-center text-center">
                         <div class="col-3">
-                            <button class="btn btn-success">Dodaj do Lotu</button>
+                            <button class="btn btn-success" v-on:click="addItemFlight(data.object.id)">Dodaj do Lotu</button>
                         </div>
                     </div>
                     <div class="row">
@@ -101,7 +101,7 @@
                                 <td>usuń</td>
                             </tr>
                         </table>
-                        <p class="text-center fluid" v-if="list.length==0">Brak turystów</p>
+                        <p class="text-center fluid" v-if="list.length==0">Brak Lotów</p>
                     </div>
                 </div>
             </div>
@@ -115,6 +115,7 @@
 
 <script>
     import axios from 'axios';
+import { setTimeout } from 'timers';
 
     export default {
         mounted(){
@@ -132,6 +133,54 @@
                         this.list = result.data;
                     }, error => {
                         alert('An error occured');
+                    });
+            },
+            deleteItem(id){
+
+            },
+            addItemUser(id){
+                let user = prompt("Podaj ID użytkownika (bez '#'):"); //I know it's also a bit ugly, but I don't have much time :/
+                let regex = /^\d+$/;
+                if(user==null) return;
+                if(!regex.test(user)){
+                    alert('Musisz podać samą liczbę!');
+                    return;
+                }
+                axios.post('/api/toflight/'+id+'/'+user)
+                    .then(result => {
+                        if(result.data.status!='success'){
+                            alert('Wystąpił błąd!');
+                        } else{
+                            this.loadApi();
+                        }
+                    }, error => {
+                        if(error.response.status==404){
+                            alert("Nie znaleziono użytkownika z takim id");
+                        } else if(error.response.status==403){
+                            alert("Nie można dodać użytkownika (już dodano albo lot jest pełny)");
+                        } else{
+                            alert('Wystąpił błąd!');
+                        }
+                    });
+                
+            },
+            addItemFlight(id){
+                let flight = prompt("Podaj ID lotu (bez '#'):"); //I know it's a bit ugly, but I don't have much time 
+                let regex = /^\d+$/;
+                if(flight==null) return;
+                if(!regex.test(flight)){
+                    alert('Musisz podać samą liczbę!');
+                    return;
+                }
+                axios.post('/api/toflight/'+flight+'/'+id)
+                    .then(result => {
+                        if(result.data.status!='success'){
+                            alert('Wystąpił błąd!');
+                        } else{
+                            this.loadApi();
+                        }
+                    }, error => {
+                        alert('Wystąpił błąd!');
                     });
             }
         },

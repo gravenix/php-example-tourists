@@ -13,7 +13,6 @@
                                 <th>Miejsca</th>
                                 <th>Cena</th>
                                 <th>Edytuj</th>
-                                <th>Dodaj użytkownika</th>
                                 <th>Usuń</th>
                             </tr>
                         </thead>
@@ -24,7 +23,6 @@
                             <td>{{ flights[calcFlightId(flight)].seats }}</td>
                             <td>${{ flights[calcFlightId(flight)].price.toFixed(2) }}</td>
                             <td><button class="btn btn-secondary" v-on:click="edit(calcFlightId(flight))">edytuj</button></td>
-                            <td><button v-on:click="addUserToFlightModal(flights[calcFlightId(flight)].id)">dodaj</button></td>
                             <td><button class="btn btn-danger" v-on:click="deleteFlight(flights[calcFlightId(flight)].id)">usuń</button></td>
                         </tr>
                     </table>
@@ -98,31 +96,6 @@
             deleteFlight: async function(id){
                 await axios.delete('/api/flight', {data: {'id': id}});
                 this.refreshFlights();
-            },
-            addUserToFlightModal: function(id){
-                let user = prompt("Podaj ID użytkownika (bez '#'):"); //I know it's also a bit ugly, but I don't have much time :/
-                let regex = /^\d+$/;
-                if(user==null) return;
-                if(!regex.test(user)){
-                    alert('Musisz podać samą liczbę!');
-                    return;
-                }
-                axios.post('/api/toflight/'+id+'/'+user)
-                    .then(result => {
-                        if(result.data.status!='success'){
-                            alert('Wystąpił błąd!');
-                        } else{
-                            alert('Dodano!');
-                        }
-                    }, error => {
-                        if(error.response.status==404){
-                            alert("Nie znaleziono użytkownika z takim id");
-                        } else if(error.response.status==403){
-                            alert("Nie można dodać użytkownika (już dodano albo lot jest pełny)");
-                        } else{
-                            alert('Wystąpił błąd!');
-                        }
-                    });
             },
             edit: function(id){
                 this.$root.$emit('edit', {
