@@ -38,5 +38,6 @@
     <!-- Modals -->
     @include('admin.modals.adduser')
     @include('admin.modals.addflight')
+    @include('admin.modals.editmodal')
 </div>
 @endsection

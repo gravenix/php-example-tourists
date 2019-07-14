@@ -14,6 +14,7 @@
                                 <th>Data urodzenia</th>
                                 <th>Płeć</th>
                                 <th>Kraj</th>
+                                <th>Edytuj</th>
                                 <th>Dodaj do Lotu</th>
                                 <th>Usuń</th>
                             </tr>
@@ -26,8 +27,9 @@
                             <td>{{ users[calcUserId(user)].birth_day }}</td>
                             <td>{{ users[calcUserId(user)].sex=='man'?'mężczyzna':'kobieta' }}</td>
                             <td>{{ users[calcUserId(user)].country }}</td>
+                            <td><button class="btn btn-secondary" v-on:click="edit(calcUserId(user))">edytuj</button></td>
                             <td><button v-on:click="addToFlightModal(users[calcUserId(user)].id)">dodaj</button></td>
-                            <td><button v-on:click="deleteUser(users[calcUserId(user)].id)">usuń</button></td>
+                            <td><button class="btn btn-danger" v-on:click="deleteUser(users[calcUserId(user)].id)">usuń</button></td>
                         </tr>
                     </table>
                     <nav aria-label="Page navigation example">
@@ -121,7 +123,14 @@
                     }, error => {
                         alert('Wystąpił błąd!');
                     });
-            }
+            },
+            edit: function(id){
+                this.$root.$emit('edit', {
+                    type: 'user',
+                    object: this.users[id],
+                    api: '/api/user/getflights'
+                });
+            },
         },
         data() {
             return {

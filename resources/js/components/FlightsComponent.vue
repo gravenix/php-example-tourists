@@ -12,6 +12,7 @@
                                 <th>Czas Przylotu</th>
                                 <th>Miejsca</th>
                                 <th>Cena</th>
+                                <th>Edytuj</th>
                                 <th>Dodaj użytkownika</th>
                                 <th>Usuń</th>
                             </tr>
@@ -22,8 +23,9 @@
                             <td>{{ flights[calcFlightId(flight)].arrival_time }}</td>
                             <td>{{ flights[calcFlightId(flight)].seats }}</td>
                             <td>${{ flights[calcFlightId(flight)].price.toFixed(2) }}</td>
+                            <td><button class="btn btn-secondary" v-on:click="edit(calcFlightId(flight))">edytuj</button></td>
                             <td><button v-on:click="addUserToFlightModal(flights[calcFlightId(flight)].id)">dodaj</button></td>
-                            <td><button v-on:click="deleteFlight(flights[calcFlightId(flight)].id)">usuń</button></td>
+                            <td><button class="btn btn-danger" v-on:click="deleteFlight(flights[calcFlightId(flight)].id)">usuń</button></td>
                         </tr>
                     </table>
                     <nav aria-label="Page navigation example">
@@ -121,6 +123,13 @@
                             alert('Wystąpił błąd!');
                         }
                     });
+            },
+            edit: function(id){
+                this.$root.$emit('edit', {
+                    type: 'flight',
+                    object: this.flights[id],
+                    api: '/api/flight/getusers'
+                });
             }
         },
         data() {

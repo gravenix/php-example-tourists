@@ -73,7 +73,7 @@ class FlightController extends Controller
      */
     public function getUsers($flight_id){
         try{
-            $flight = Flight::findOrFail($flight_id)->first();
+            $flight = Flight::findOrFail($flight_id);
             return response()->json($flight->users()->get(), 200);
         } catch(ModelNotFoundException $e){
             return response()->json([], 404);
@@ -87,7 +87,7 @@ class FlightController extends Controller
      */
     public function getFlights($user_id){
         try{
-            $user = User::findOrFail($user_id)->first();
+            $user = User::findOrFail($user_id);
             return response()->json($user->flights()->get(), 200);
         } catch(ModelNotFoundException $e){
             return response()->json([], 404);

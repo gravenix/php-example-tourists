@@ -10660,3 +10660,7 @@ a.btn {
   cursor: default;
 }
 
+.fluid {
+  width: 100%;
+}
+

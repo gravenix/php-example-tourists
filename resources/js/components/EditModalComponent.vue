@@ -1,0 +1,150 @@
+<template>
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Informacje</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <div class="modal-body">
+                <h2>{{ data.type=='flight'?"Lot":"Turysta" }} #{{ data.object.id }}</h2>
+                <div v-if="data.type=='flight'">
+                    <div class="row text-center font-weight-bold">
+                        <div class="col-3">Data i godzina odlotu</div>
+                        <div class="col-3">Data i godzina przylotu</div>
+                        <div class="col-3">Miejsc</div>
+                        <div class="col-3">Cena biletu</div>
+                    </div>
+                    <div class="row text-center font-weight-light">
+                        <div class="col-3">{{ data.object.departure_time }}</div>
+                        <div class="col-3">{{ data.object.arrival_time }}</div>
+                        <div class="col-3">{{ data.object.seats }}</div>
+                        <div class="col-3">${{ data.object.price.toFixed(2) }}</div>
+                    </div>
+                    <div class="row justify-content-center text-center">
+                        <div class="col-3">
+                            <button class="btn btn-success">Dodaj użytkownika</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table class="table">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Imię</th>
+                                    <th>Nazwisko</th>
+                                    <th>E-Mail</th>
+                                    <th>Płeć</th>
+                                    <th>Kraj</th>
+                                    <th>Usuń z Lotu</th>
+                                </tr>
+                            </thead>
+                            <tr v-for="(user, i) in list" :key="i">
+                                <td>#{{ user.id }}</td>
+                                <td>{{ user.name }}</td>
+                                <td>{{ user.lastname }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.sex=='man'?'Mężczyzna':'Kobieta' }}</td>
+                                <td>{{ user.country }}</td>
+                                <td>usuń</td>
+                            </tr>
+                        </table>
+                        <p class="text-center fluid" v-if="list.length==0">Brak turystów</p>
+                    </div>
+                </div>
+                <div v-if="data.type=='user'">
+                    <div class="row text-center font-weight-bold">
+                        <div class="col-3">Imię</div>
+                        <div class="col-3">Nazwisko</div>
+                        <div class="col-3">E-Mail</div>
+                        <div class="col-3">Płeć</div>
+                    </div>
+                    <div class="row text-center font-weight-light">
+                        <div class="col-3">{{ data.object.name }}</div>
+                        <div class="col-3">{{ data.object.lastname }}</div>
+                        <div class="col-3">{{ data.object.email }}</div>
+                        <div class="col-3">{{ data.object.sex=='man'?'Mężczyzna':'Kobieta' }}</div>
+                    </div>
+                    <div class="row text-center font-weight-bold">
+                        <div class="col-3">Data urodzenia</div>
+                        <div class="col-3">Kraj</div>
+                    </div>
+                    <div class="row text-center font-weight-light">
+                        <div class="col-3">{{ data.object.birth_day }}</div>
+                        <div class="col-3">{{ data.object.country }}</div>
+                    </div>
+                    <div class="row justify-content-center text-center">
+                        <div class="col-3">
+                            <button class="btn btn-success">Dodaj do Lotu</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table class="table">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Odlot</th>
+                                    <th>Przylot</th>
+                                    <th>Miejsca</th>
+                                    <th>Cena</th>
+                                    <th>Usuń z Lotu</th>
+                                </tr>
+                            </thead>
+                            <tr v-for="(flight, i) in list" :key="i">
+                                <td>#{{ flight.id }}</td>
+                                <td>{{ flight.departure_time }}</td>
+                                <td>{{ flight.arrival_time }}</td>
+                                <td>{{ flight.seats }}</td>
+                                <td>${{ flight.price.toFixed(2) }}</td>
+                                <td>usuń</td>
+                            </tr>
+                        </table>
+                        <p class="text-center fluid" v-if="list.length==0">Brak turystów</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Zamknij</button>
+            </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import axios from 'axios';
+
+    export default {
+        mounted(){
+            this.modal = $('#editModal');
+            this.$root.$on('edit', data => {
+                this.data=data;
+                this.loadApi();
+                this.modal.modal('show');
+            });
+        },
+        methods: {
+            loadApi(){
+                axios.get(this.data.api+'/'+this.data.object.id)
+                    .then(result =>{
+                        this.list = result.data;
+                    }, error => {
+                        alert('An error occured');
+                    });
+            }
+        },
+        data() {
+            return { 
+                modal: null,
+                data: {
+                    object:{
+                        id: 0
+                    }
+                },
+                list: {},
+            }
+        }
+    }
+</script>

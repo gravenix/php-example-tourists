@@ -14,6 +14,7 @@ Vue.component('users', require('./components/UsersComponent.vue').default);
 Vue.component('flights', require('./components/FlightsComponent.vue').default);
 Vue.component('user-form', require('./components/UserModalComponent.vue').default);
 Vue.component('flight-form', require('./components/FlightModalComponent.vue').default);
+Vue.component('edit-form', require('./components/EditModalComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
