@@ -5,8 +5,8 @@
         methods: {
             addflight: function(){
                 var data = {
-                    departure_time: document.getElementById('dt').value,
-                    arrival_time: document.getElementById('at').value,
+                    departure_time: document.getElementById('dt').value+' '+document.getElementById('dt2').value,
+                    arrival_time: document.getElementById('at').value+' '+document.getElementById('at2').value,
                     seats: document.getElementById('seats').value,
                     price: document.getElementById('price').value,
                 }

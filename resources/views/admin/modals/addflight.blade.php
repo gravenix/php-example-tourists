@@ -14,14 +14,16 @@
                         <label for="dt" class="col-md-4 col-form-label text-md-right">{{ __('admin.departure') }}</label>
 
                         <div class="col-md-6">
-                            <input id="dt" type="datetime-local" class="form-control" name="departure_time" required>
+                            <input id="dt" type="date" class="form-control inline" name="departure_time" placeholder="yyyy-mm-dd" required>
+                            <input id="dt2" type="time" class="form-control inline" placeholder="hh:mm" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="at" class="col-md-4 col-form-label text-md-right">{{ __('admin.arrival') }}</label>
 
                         <div class="col-md-6">
-                            <input id="at" type="datetime-local" class="form-control" name="arrival_time" required>
+                            <input id="at" type="date" class="form-control" placeholder="yyyy-mm-dd" name="arrival_time" required>
+                            <input id="at2" type="time" class="form-control" placeholder="hh:mm" required>
                         </div>
                     </div>
                     <div class="form-group row">
