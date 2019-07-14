@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::get('user', function (Request $request) {
     return $request->user();
 });
 
@@ -23,8 +23,8 @@ Route::get('users', 'AdminController@users')->name('api.users');
 Route::post('user', 'AdminController@adduser')->name('api.adduser');
 Route::delete('user', 'AdminController@deluser')->name('api.deluser');
 Route::post('user/{id}', 'AdminController@updateUser')->where('id', '[0-9]+')->name('api.updateuser');
-Route::get('user/getflights/{id}', 'FlightController@getFlights')->where([
-    'id' => '[0-9]+',
+Route::get('user/getflights/{id?}', 'FlightController@getFlights')->where([
+    'id' => '[0-9]*',
 ])->name('api.getflightusers');
 
 //flights

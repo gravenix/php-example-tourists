@@ -11,6 +11,9 @@ div{
     &.row{
         margin-bottom: 20px;
     }
+    &.card-body{
+        overflow-x: auto;
+    }
 }
 
 a{
