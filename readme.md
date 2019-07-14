@@ -8,23 +8,24 @@ An example Laravel app
     $ composer install
     $ npm install
     ```
-3. Generate key:
+3. Set up *.env* file so app can connect to mysql
+4. Generate key:
     ```sh
     $ php artisan key:generate
     ```
-4. Migrate:
+5. Migrate:
     ```sh
     $ php artisan migrate
     ```
-5. *(Optional)* You may also seed database!
+6. *(Optional)* You may also seed database!
     ```sh
     $ php artisan db:seed
     ```
-6. Compile assets
+7. Compile assets
     ```sh
     $ npm run production
     ```
-7. Now you should be able to run:
+8. Now you should be able to run:
     ```sh
     $ php artisan serve
     ```
