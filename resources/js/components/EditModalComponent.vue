@@ -48,7 +48,7 @@
                                 <td>{{ user.email }}</td>
                                 <td>{{ user.sex=='man'?'Mężczyzna':'Kobieta' }}</td>
                                 <td>{{ user.country }}</td>
-                                <td><button class="btn btn-danger" v-on:click="deleteItem(user.id)">usuń</button></td>
+                                <td><button class="btn btn-danger" v-on:click="deleteItemFlight(user.id)">usuń</button></td>
                             </tr>
                         </table>
                         <p class="text-center fluid" v-if="list.length==0">Brak turystów</p>
@@ -98,7 +98,7 @@
                                 <td>{{ flight.arrival_time }}</td>
                                 <td>{{ flight.seats }}</td>
                                 <td>${{ flight.price.toFixed(2) }}</td>
-                                <td>usuń</td>
+                                <td><button class="btn btn-danger" v-on:click="deleteItemUser(flight.id)">usuń</button></td>
                             </tr>
                         </table>
                         <p class="text-center fluid" v-if="list.length==0">Brak Lotów</p>
@@ -134,9 +134,6 @@ import { setTimeout } from 'timers';
                     }, error => {
                         alert('An error occured');
                     });
-            },
-            deleteItem(id){
-
             },
             addItemUser(id){
                 let user = prompt("Podaj ID użytkownika (bez '#'):"); //I know it's also a bit ugly, but I don't have much time :/
@@ -181,6 +178,24 @@ import { setTimeout } from 'timers';
                         }
                     }, error => {
                         alert('Wystąpił błąd!');
+                    });
+            },
+            deleteItemFlight(id){
+                let flight = this.data.object.id;
+                axios.post('/api/delfromflight/'+flight+'/'+id)
+                    .then(result => {
+                        this.loadApi();
+                    }, error => {
+                        alert('An error occurred');
+                    });
+            },
+            deleteItemUser(flight){
+                let id = this.data.object.id;
+                axios.post('/api/delfromflight/'+flight+'/'+id)
+                    .then(result => {
+                        this.loadApi();
+                    }, error => {
+                        alert('An error occurred');
                     });
             }
         },
