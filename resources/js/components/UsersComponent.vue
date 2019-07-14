@@ -58,7 +58,7 @@
                     alert("An error occurred while loading users!")
                 });
             this.$root.$on('refreshUsers', () =>{
-                this.refreshUsers()
+                this.refreshUsers();
             });
         },
         computed: {

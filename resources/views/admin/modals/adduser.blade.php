@@ -9,7 +9,7 @@
                     </button>
                 </div>
             <div class="modal-body">
-                <form method="POST" action="{{ route('register') }}">
+                <form method="POST">
                     @csrf
 
                     <div class="form-group row">

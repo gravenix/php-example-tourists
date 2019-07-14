@@ -49,6 +49,9 @@
             }, error => {
                 alert("An error occurred while loading flights!")
             });
+            this.$root.$on('refreshFlights', () =>{
+                this.refreshFlights();
+            });
         },
         computed: {
             pagesCount: function(){
@@ -75,7 +78,15 @@
             },
             calcFlightId: function(flight){
                 return (this.page-1)*10+(flight-1);
-            }
+            },
+            refreshFlights: function() {
+                axios.get('/api/flights')
+                    .then(result=> {
+                        this.flights = result.data;
+                    }, error => {
+                        alert("An error occurred while loading users!")
+                    });
+            },
         },
         data() {
             return {

@@ -28,6 +28,7 @@
                         this.$root.$emit('refreshUsers');
                     }, error => {
                         //false
+                        $('.add-button').attr("disabled", false); //enable for future use
                         alert("An error occurred");
                     });
             },

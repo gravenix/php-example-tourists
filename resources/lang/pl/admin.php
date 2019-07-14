@@ -21,4 +21,10 @@ return [
     'addflight' => 'Dodaj lot',
     'cancel' => 'Anuluj',
 
+    //flight form
+    'departure' => "Data i godzina odlotu",
+    'arrival' => "Data i godzina przylotu",
+    'seats' => "Miejsca",
+    'price' => "Cena biletu",
+
 ];

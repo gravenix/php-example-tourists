@@ -32,10 +32,11 @@
     <flights title="{{ __('admin.flights') }}"></flights>
     <div class="row justify-content-end">
         <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#adduserModal">{{ __('admin.adduser') }}</a>
-        <a href="#" class="btn btn-primary">{{ __('admin.addflight') }}</a>   
+        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addflightModal">{{ __('admin.addflight') }}</a>   
     </div>
 
     <!-- Modals -->
     @include('admin.modals.adduser')
+    @include('admin.modals.addflight')
 </div>
 @endsection
