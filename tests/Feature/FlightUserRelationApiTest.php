@@ -190,4 +190,56 @@ class FlightUserRelationApiTest extends TestCase
         //check id DB
         $this->assertEquals(1, $flight->users()->count());
     }
+
+    /**
+     * Test getting user flights
+     * 
+     * @return void
+     */
+    public function test_get_assigned_flights(){
+        $flight = factory(Flight::class)->create([
+            'seats' => 100
+        ]);
+        $users = factory(User::class, 10)->create();
+
+        foreach($users as $user){
+            $response = $this->actingAs($user)->post(route('api.addtoflight', [
+                'flight_id' => $flight->id,
+            ]));
+            $response->assertStatus(200);
+        }
+
+        $response = $this->actingAs($users[0])->get(route('api.getuserflights', [
+            'id' => $flight->id
+        ]));
+        $response->assertStatus(200);
+        foreach($users as $user){
+            $response->assertJsonFragment($user->toArray());
+        }
+    }
+
+    /**
+     * Test getting flight users
+     * 
+     * @return void
+     */
+    public function test_get_assigned_users(){
+        $flights = factory(Flight::class, 5)->create([
+            'seats' => 100
+        ]);
+        $user = factory(User::class)->create();
+
+        foreach($flights as $flight){
+            $response = $this->actingAs($user)->post(route('api.addtoflight', [
+                'flight_id' => $flight->id,
+            ]));
+            $response->assertStatus(200);
+        }
+
+        $response = $this->actingAs($user)->get(route('api.getflightusers', [
+            'id' => $user->id
+        ]));
+        $response->assertStatus(200)
+                ->assertJsonCount(sizeof($flights));
+    }
 }

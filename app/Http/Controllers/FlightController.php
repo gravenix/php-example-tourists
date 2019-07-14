@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\User;
 use App\Flight;
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class FlightController extends Controller
@@ -63,5 +64,33 @@ class FlightController extends Controller
       */
     public function flights(){
         return response()->json(Flight::orderBy('departure_time')->get());
+    }
+
+    /**
+     * Gets all users assigned to this flight
+     * 
+     * @return json users
+     */
+    public function getUsers($flight_id){
+        try{
+            $flight = Flight::findOrFail($flight_id)->first();
+            return response()->json($flight->users()->get(), 200);
+        } catch(ModelNotFoundException $e){
+            return response()->json([], 404);
+        }
+    }
+
+    /**
+     * Gets all flights assigned to user
+     * 
+     * @return json flights
+     */
+    public function getFlights($user_id){
+        try{
+            $user = User::findOrFail($user_id)->first();
+            return response()->json($user->flights()->get(), 200);
+        } catch(ModelNotFoundException $e){
+            return response()->json([], 404);
+        }
     }
 }

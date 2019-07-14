@@ -23,12 +23,18 @@ Route::get('users', 'AdminController@users')->name('api.users');
 Route::post('user', 'AdminController@adduser')->name('api.adduser');
 Route::delete('user', 'AdminController@deluser')->name('api.deluser');
 Route::post('user/{id}', 'AdminController@updateUser')->where('id', '[0-9]+')->name('api.updateuser');
+Route::get('user/getflights/{id}', 'FlightController@getFlights')->where([
+    'id' => '[0-9]+',
+])->name('api.getflightusers');
 
 //flights
 Route::get('flights', 'FlightController@flights')->name('api.flights');
 Route::post('flight/{id}', 'FlightController@updateFlight')->where('id', '[0-9]+')->name('api.updateflight');
 Route::post('flight', 'FlightController@addFlight')->name('api.addflight');
 Route::delete('flight', 'FlightController@delFlight')->name('api.delflight');
+Route::get('flight/getusers/{id}', 'FlightController@getUsers')->where([
+    'id' => '[0-9]+',
+])->name('api.getuserflights');
 
 //relations
 Route::post('toflight/{flight_id}/{user_id?}', 'FlightUserController@addRelation')->where([
